@@ -122,6 +122,13 @@ public interface StateStore {
     boolean persistent();
 
     /**
+     * Checks if eviction invocation is viable.
+     *
+     * @return {@code true} if eviction invocation is viable, {@code false} otherwise
+     */
+    boolean isEvictionInvocationViable();
+
+    /**
      * Is this store open for reading and writing
      * @return {@code true} if the store is open
      */

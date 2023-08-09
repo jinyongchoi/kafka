@@ -107,6 +107,11 @@ public abstract class WrappedStateStore<S extends StateStore, K, V> implements S
     }
 
     @Override
+    public boolean isEvictionInvocationViable() {
+        return wrapped.isEvictionInvocationViable();
+    }
+
+    @Override
     public boolean isOpen() {
         return wrapped.isOpen();
     }

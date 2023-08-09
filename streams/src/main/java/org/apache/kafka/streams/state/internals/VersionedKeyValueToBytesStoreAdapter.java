@@ -112,6 +112,11 @@ public class VersionedKeyValueToBytesStoreAdapter implements VersionedBytesStore
     public boolean persistent() {
         return inner.persistent();
     }
+    
+    @Override
+    public boolean isEvictionInvocationViable() {
+        return inner.isEvictionInvocationViable();
+    }
 
     @Override
     public boolean isOpen() {

@@ -286,7 +286,8 @@ public class CachingKeyValueStore
                 context.offset(),
                 context.timestamp(),
                 context.partition(),
-                context.topic()));
+                context.topic()),
+            wrapped().isEvictionInvocationViable());
 
         StoreQueryUtils.updatePosition(position, context);
     }
@@ -374,8 +375,9 @@ public class CachingKeyValueStore
             }
             // only update the cache if this call is on the streamThread
             // as we don't want other threads to trigger an eviction/flush
-            if (Thread.currentThread().equals(streamThread)) {
-                context.cache().put(cacheName, key, new LRUCacheEntry(rawValue));
+            final boolean isEvictionViable = isEvictionInvocationViable();
+            if (Thread.currentThread().equals(streamThread) && isEvictionViable) {
+                context.cache().put(cacheName, key, new LRUCacheEntry(rawValue), isEvictionViable);
             }
             return rawValue;
         } else {

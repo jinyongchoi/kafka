@@ -280,6 +280,11 @@ public class RocksDBVersionedStore implements VersionedKeyValueStore<Bytes, byte
     }
 
     @Override
+    public boolean isEvictionInvocationViable() {
+        return true;
+    }
+
+    @Override
     public boolean isOpen() {
         return open;
     }

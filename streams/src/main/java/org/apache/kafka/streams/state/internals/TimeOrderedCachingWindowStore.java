@@ -281,7 +281,7 @@ class TimeOrderedCachingWindowStore
             // it could be evicted when we are putting base key. In that case, base key is not yet
             // in cache so we can't store key/value to store when index is evicted. Then if we fetch
             // using index, we can't find it in either store or cache
-            context.cache().put(cacheName, baseKeyCacheFunction.cacheKey(baseKeyBytes), entry);
+            context.cache().put(cacheName, baseKeyCacheFunction.cacheKey(baseKeyBytes), entry, wrapped().isEvictionInvocationViable());
             final LRUCacheEntry emptyEntry =
                 new LRUCacheEntry(
                     new byte[0],
@@ -292,9 +292,9 @@ class TimeOrderedCachingWindowStore
                     context.partition(),
                     "");
             final Bytes indexKey = KeyFirstWindowKeySchema.toStoreKeyBinary(key, windowStartTimestamp, 0);
-            context.cache().put(cacheName, indexKeyCacheFunction.cacheKey(indexKey), emptyEntry);
+            context.cache().put(cacheName, indexKeyCacheFunction.cacheKey(indexKey), emptyEntry, wrapped().isEvictionInvocationViable());
         } else {
-            context.cache().put(cacheName, baseKeyCacheFunction.cacheKey(baseKeyBytes), entry);
+            context.cache().put(cacheName, baseKeyCacheFunction.cacheKey(baseKeyBytes), entry, wrapped().isEvictionInvocationViable());
         }
         maxObservedTimestamp.set(Math.max(windowStartTimestamp, maxObservedTimestamp.get()));
     }

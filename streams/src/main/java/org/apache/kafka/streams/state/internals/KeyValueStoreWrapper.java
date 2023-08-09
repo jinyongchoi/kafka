@@ -148,6 +148,11 @@ public class KeyValueStoreWrapper<K, V> implements StateStore {
     }
 
     @Override
+    public boolean isEvictionInvocationViable() {
+        return store.isEvictionInvocationViable();
+    }
+
+    @Override
     public boolean isOpen() {
         return store.isOpen();
     }

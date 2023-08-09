@@ -116,6 +116,11 @@ public class KeyValueToTimestampedKeyValueByteStoreAdapter implements KeyValueSt
     }
 
     @Override
+    public boolean isEvictionInvocationViable() {
+        return store.isEvictionInvocationViable();
+    }
+
+    @Override
     public boolean isOpen() {
         return store.isOpen();
     }

@@ -153,7 +153,7 @@ class CachingSessionStore
                 context.timestamp(),
                 context.partition(),
                 context.topic());
-        context.cache().put(cacheName, cacheFunction.cacheKey(binaryKey), entry);
+        context.cache().put(cacheName, cacheFunction.cacheKey(binaryKey), entry, wrapped().isEvictionInvocationViable());
 
         maxObservedTimestamp = Math.max(keySchema.segmentTimestamp(binaryKey), maxObservedTimestamp);
     }

@@ -301,6 +301,11 @@ public class RocksDBStore implements KeyValueStore<Bytes, byte[]>, BatchWritingS
     }
 
     @Override
+    public boolean isEvictionInvocationViable() {
+        return openIterators.isEmpty();
+    }
+
+    @Override
     public boolean isOpen() {
         return open;
     }

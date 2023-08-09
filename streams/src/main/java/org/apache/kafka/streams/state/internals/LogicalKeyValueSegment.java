@@ -164,6 +164,11 @@ class LogicalKeyValueSegment implements Comparable<LogicalKeyValueSegment>, Segm
     }
 
     @Override
+    public boolean isEvictionInvocationViable() {
+        return physicalStore.isEvictionInvocationViable();
+    }
+
+    @Override
     public boolean isOpen() {
         return true;
     }

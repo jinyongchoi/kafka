@@ -167,7 +167,7 @@ public class ThreadCache {
         return cache.get(key);
     }
 
-    public void put(final String namespace, final Bytes key, final LRUCacheEntry value) {
+    public void put(final String namespace, final Bytes key, final LRUCacheEntry value, final boolean isEvictionViable) {
         numPuts++;
 
         final NamedCache cache = getOrCreateCache(namespace);
@@ -176,18 +176,22 @@ public class ThreadCache {
             final long oldSize = cache.sizeInBytes();
             cache.put(key, value);
             sizeInBytes.getAndAdd(cache.sizeInBytes() - oldSize);
-            maybeEvict(namespace, cache);
+            if (isEvictionViable) {
+                maybeEvict(namespace, cache);
+            }
         }
     }
 
-    public LRUCacheEntry putIfAbsent(final String namespace, final Bytes key, final LRUCacheEntry value) {
+    public LRUCacheEntry putIfAbsent(final String namespace, final Bytes key, final LRUCacheEntry value, final boolean isEvictionViable) {
         final NamedCache cache = getOrCreateCache(namespace);
         final LRUCacheEntry result;
         synchronized (cache) {
             final long oldSize = cache.sizeInBytes();
             result = cache.putIfAbsent(key, value);
             sizeInBytes.getAndAdd(cache.sizeInBytes() - oldSize);
-            maybeEvict(namespace, cache);
+            if (isEvictionViable) {
+                maybeEvict(namespace, cache);
+            }
         }
 
         if (result == null) {
@@ -196,9 +200,9 @@ public class ThreadCache {
         return result;
     }
 
-    public void putAll(final String namespace, final List<KeyValue<Bytes, LRUCacheEntry>> entries) {
+    public void putAll(final String namespace, final List<KeyValue<Bytes, LRUCacheEntry>> entries, final boolean isEvictionViable) {
         for (final KeyValue<Bytes, LRUCacheEntry> entry : entries) {
-            put(namespace, entry.key, entry.value);
+            put(namespace, entry.key, entry.value, isEvictionViable);
         }
     }
 

@@ -351,6 +351,11 @@ public class AbstractRocksDBSegmentedBytesStore<S extends Segment> implements Se
     }
 
     @Override
+    public boolean isEvictionInvocationViable() {
+        return true;
+    }
+
+    @Override
     public boolean isOpen() {
         return open;
     }
