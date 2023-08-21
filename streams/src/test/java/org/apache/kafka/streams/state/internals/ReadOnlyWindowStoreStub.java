@@ -396,6 +396,11 @@ public class ReadOnlyWindowStoreStub<K, V> implements ReadOnlyWindowStore<K, V>,
     }
 
     @Override
+    public boolean isEvictionInvocationViable() {
+        return true;
+    }
+
+    @Override
     public boolean isOpen() {
         return open;
     }

@@ -184,6 +184,11 @@ class WindowToTimestampedWindowByteStoreAdapter implements WindowStore<Bytes, by
     }
 
     @Override
+    public boolean isEvictionInvocationViable() {
+        return store.isEvictionInvocationViable();
+    }
+
+    @Override
     public boolean isOpen() {
         return store.isOpen();
     }

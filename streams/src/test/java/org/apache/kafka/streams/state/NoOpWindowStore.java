@@ -77,6 +77,11 @@ public class NoOpWindowStore implements ReadOnlyWindowStore, StateStore {
     }
 
     @Override
+    public boolean isEvictionInvocationViable() {
+        return true;
+    }
+
+    @Override
     public boolean isOpen() {
         return false;
     }

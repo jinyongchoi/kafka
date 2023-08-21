@@ -64,7 +64,7 @@ public class ThreadCacheTest {
         for (final KeyValue<String, String> kvToInsert : toInsert) {
             final Bytes key = Bytes.wrap(kvToInsert.key.getBytes());
             final byte[] value = kvToInsert.value.getBytes();
-            cache.put(namespace, key, new LRUCacheEntry(value, new RecordHeaders(), true, 1L, 1L, 1, ""));
+            cache.put(namespace, key, new LRUCacheEntry(value, new RecordHeaders(), true, true, 1L, 1L, 1, ""));
         }
 
         for (final KeyValue<String, String> kvToInsert : toInsert) {
@@ -97,7 +97,7 @@ public class ThreadCacheTest {
             final String keyStr = "K" + i;
             final Bytes key = Bytes.wrap(keyStr.getBytes());
             final byte[] value = new byte[valueSizeBytes];
-            cache.put(namespace, key, new LRUCacheEntry(value, new RecordHeaders(), true, 1L, 1L, 1, ""));
+            cache.put(namespace, key, new LRUCacheEntry(value, new RecordHeaders(), true, true, 1L, 1L, 1, ""));
         }
 
 
@@ -175,7 +175,7 @@ public class ThreadCacheTest {
         for (final KeyValue<String, String> kvToInsert : toInsert) {
             final Bytes key = Bytes.wrap(kvToInsert.key.getBytes());
             final byte[] value = kvToInsert.value.getBytes();
-            cache.put(namespace, key, new LRUCacheEntry(value, new RecordHeaders(), true, 1, 1, 1, ""));
+            cache.put(namespace, key, new LRUCacheEntry(value, new RecordHeaders(), true, true, 1, 1, 1, ""));
         }
 
         for (int i = 0; i < expected.size(); i++) {
@@ -608,15 +608,15 @@ public class ThreadCacheTest {
         cache.put(namespace, Bytes.wrap(new byte[]{1}), cleanEntry(new byte[]{0}));
         cache.put(namespace, Bytes.wrap(new byte[]{2}), cleanEntry(new byte[]{0}));
         cache.put(namespace, Bytes.wrap(new byte[]{3}), cleanEntry(new byte[]{0}));
-        assertEquals(141, cache.sizeBytes());
+        assertEquals(144, cache.sizeBytes());
         cache.resize(100);
-        assertEquals(94, cache.sizeBytes());
+        assertEquals(96, cache.sizeBytes());
         cache.put(namespace1, Bytes.wrap(new byte[]{4}), cleanEntry(new byte[]{0}));
-        assertEquals(94, cache.sizeBytes());
+        assertEquals(96, cache.sizeBytes());
     }
 
     private LRUCacheEntry dirtyEntry(final byte[] key) {
-        return new LRUCacheEntry(key, new RecordHeaders(), true, -1, -1, -1, "");
+        return new LRUCacheEntry(key, new RecordHeaders(), true, true, -1, -1, -1, "");
     }
 
     private LRUCacheEntry cleanEntry(final byte[] key) {

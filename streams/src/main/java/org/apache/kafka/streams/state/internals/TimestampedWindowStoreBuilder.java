@@ -254,5 +254,10 @@ public class TimestampedWindowStoreBuilder<K, V>
         public boolean persistent() {
             return false;
         }
+
+        @Override
+        public boolean isEvictionInvocationViable() {
+            return wrapped.isEvictionInvocationViable();
+        }
     }
 }

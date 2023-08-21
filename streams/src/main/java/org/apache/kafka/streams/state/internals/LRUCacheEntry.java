@@ -29,15 +29,17 @@ class LRUCacheEntry {
     private final ContextualRecord record;
     private final long sizeBytes;
     private boolean isDirty;
+    private boolean isAddingToHead;
 
 
     LRUCacheEntry(final byte[] value) {
-        this(value, new RecordHeaders(), false, -1, -1, -1, "");
+        this(value, new RecordHeaders(), false, true, -1, -1, -1, "");
     }
 
     LRUCacheEntry(final byte[] value,
                   final Headers headers,
                   final boolean isDirty,
+                  final boolean isAddingToHead,
                   final long offset,
                   final long timestamp,
                   final int partition,
@@ -50,7 +52,8 @@ class LRUCacheEntry {
         );
 
         this.isDirty = isDirty;
-        this.sizeBytes = 1 + // isDirty
+        this.isAddingToHead = isAddingToHead;
+        this.sizeBytes = 2 + // isDirty + isAddingToHead
             record.residentMemorySizeEstimate();
     }
 
@@ -60,6 +63,10 @@ class LRUCacheEntry {
 
     boolean isDirty() {
         return isDirty;
+    }
+
+    boolean isAddingToHead() {
+        return isAddingToHead;
     }
 
     long size() {

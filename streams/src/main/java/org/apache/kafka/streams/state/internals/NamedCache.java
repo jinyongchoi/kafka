@@ -180,7 +180,11 @@ class NamedCache {
         } else {
             node = new LRUNode(key, value);
             // put element
-            putHead(node);
+            if (node.entry.value() == null) {
+                putTail(node);
+            } else {
+                putHead(node);
+            }
             cache.put(key, node);
         }
         if (value.isDirty()) {
@@ -212,7 +216,11 @@ class NamedCache {
     private void updateLRU(final LRUNode node) {
         remove(node);
 
-        putHead(node);
+        if (node.entry.value() == null) {
+            putTail(node);
+        } else {
+            putHead(node);
+        }
     }
 
     private void remove(final LRUNode node) {
@@ -237,6 +245,18 @@ class NamedCache {
         head = node;
         if (tail == null) {
             tail = head;
+        }
+    }
+
+    private void putTail(final LRUNode node) {
+        node.previous = tail;
+        node.next = null;
+        if (tail != null) {
+            tail.next = node;
+        }
+        tail = node;
+        if (head == null) {
+            head = tail;
         }
     }
 

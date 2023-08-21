@@ -91,7 +91,7 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.StrictStubs.class)
 public class CachingPersistentWindowStoreTest {
 
-    private static final int MAX_CACHE_SIZE_BYTES = 150;
+    private static final int MAX_CACHE_SIZE_BYTES = 152;
     private static final long DEFAULT_TIMESTAMP = 10L;
     private static final Long WINDOW_SIZE = 10L;
     private static final long SEGMENT_INTERVAL = 100L;

@@ -377,6 +377,11 @@ public class IQv2IntegrationTest {
                         }
 
                         @Override
+                        public boolean isEvictionInvocationViable() {
+                            return true;
+                        }
+
+                        @Override
                         public boolean isOpen() {
                             return open;
                         }

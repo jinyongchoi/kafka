@@ -75,6 +75,11 @@ public class RocksDBTimeOrderedWindowStore
     }
 
     @Override
+    public boolean isEvictionInvocationViable() {
+        return wrapped().isEvictionInvocationViable();
+    }
+
+    @Override
     public boolean isOpen() {
         return wrapped().isOpen();
     }

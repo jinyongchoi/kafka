@@ -261,6 +261,11 @@ public class MeteredVersionedKeyValueStore<K, V>
     }
 
     @Override
+    public boolean isEvictionInvocationViable() {
+        return internal.isEvictionInvocationViable();
+    }
+
+    @Override
     public boolean isOpen() {
         return internal.isOpen();
     }

@@ -86,6 +86,11 @@ public class MockKeyValueStore implements KeyValueStore<Object, Object> {
     }
 
     @Override
+    public boolean isEvictionInvocationViable() {
+        return true;
+    }
+
+    @Override
     public boolean isOpen() {
         return !closed;
     }

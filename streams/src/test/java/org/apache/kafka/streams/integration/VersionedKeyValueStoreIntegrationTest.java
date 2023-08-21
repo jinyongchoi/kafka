@@ -845,6 +845,11 @@ public class VersionedKeyValueStoreIntegrationTest {
             }
 
             @Override
+            public boolean isEvictionInvocationViable() {
+                return true;
+            }
+
+            @Override
             public boolean isOpen() {
                 return true;
             }

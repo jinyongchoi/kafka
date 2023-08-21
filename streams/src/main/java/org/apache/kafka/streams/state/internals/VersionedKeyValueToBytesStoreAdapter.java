@@ -114,6 +114,11 @@ public class VersionedKeyValueToBytesStoreAdapter implements VersionedBytesStore
     }
 
     @Override
+    public boolean isEvictionInvocationViable() {
+        return inner.isEvictionInvocationViable();
+    }
+
+    @Override
     public boolean isOpen() {
         return inner.isOpen();
     }

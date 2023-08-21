@@ -166,6 +166,7 @@ class CachingWindowStore
                 value,
                 context.headers(),
                 true,
+                wrapped().isEvictionInvocationViable(),
                 context.offset(),
                 context.timestamp(),
                 context.partition(),

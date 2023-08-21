@@ -898,6 +898,7 @@ public class TimeOrderedWindowStoreTest {
                 new byte[0],
                 new RecordHeaders(),
                 true,
+                true,
                 context.offset(),
                 context.timestamp(),
                 context.partition(),

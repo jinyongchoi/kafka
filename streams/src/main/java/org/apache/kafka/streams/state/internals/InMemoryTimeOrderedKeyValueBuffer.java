@@ -190,6 +190,11 @@ public final class InMemoryTimeOrderedKeyValueBuffer<K, V> implements TimeOrdere
         return false;
     }
 
+    @Override
+    public boolean isEvictionInvocationViable() {
+        return true;
+    }
+
     @SuppressWarnings("unchecked")
     @Override
     public void setSerdesIfNull(final SerdeGetter getter) {
